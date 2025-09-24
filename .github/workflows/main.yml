@@ -1,0 +1,11 @@
+name: "infra-pipeline"
+on: 
+  push:
+    branches:
+      - main
+jobs:
+  my_first_job:
+    name: pahla
+    runs-on: [self-hosted,]
+    steps:
+    - run: echo Hello world!
