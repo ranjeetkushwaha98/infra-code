@@ -13,6 +13,7 @@ jobs:
   my_first_job:
     name: terraform-init-plan
     runs-on: [self-hosted,]
+    environment: Dev Env
     defaults:
       run:
         working-directory: environment/dev
