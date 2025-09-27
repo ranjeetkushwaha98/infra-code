@@ -54,10 +54,10 @@ pip-map = {
     location            = "East US"
   }
 
-  pip2 = {
-    pip_name            = "backend-pip"
-    resource_group_name = "rg1"
-    location            = "East US"
-  }
+  # pip2 = {
+  #   pip_name            = "backend-pip"
+  #   resource_group_name = "rg1"
+  #   location            = "East US"
+  # }
 }
 
