@@ -1,30 +1,22 @@
 module "resource_group" {
-    source = "../../modules/azurerm_rg"
-    rg-map = var.rg-map
+  source = "../../modules/azurerm_resource_group"
+  rg-map = var.rg-map
 }
 
-module "acr" {
-    source = "../../modules/azurerm_acr"
-    acr-map = var.acr-map
-    depends_on = [module.resource_group] 
+module "virtual_network" {
+  source     = "../../modules/azurerm_virtual_network"
+  vnet-map   = var.vnet-map
+  depends_on = [module.resource_group]
 }
-module "aks_cluster" {
-    source = "../../modules/azurerm_aks"
-    aks-map = var.aks-map
-    depends_on = [module.resource_group, module.acr]
+
+module "virtual_machine" {
+  source     = "../../modules/azurerm_virtual_machine"
+  vm-map     = var.vm-map
+  depends_on = [module.virtual_network, module.public_ip]
 }
-module "sql_server" {
-    source = "../../modules/azurerm_sql_server"
-    sqlserver-map = var.sqlserver-map
-    depends_on = [module.resource_group]
-}
-module "sql_database" {
-    source = "../../modules/azurerm_sql_database"
-    sqldb-map = var.sqldb-map
-    depends_on = [module.sql_server]
-}
-module "storage_account" {
-    source = "../../modules/azurerm_storage"
-    storage-map = var.storage-map
-    depends_on = [module.resource_group]
+
+module "public_ip" {
+  source = "../../modules/azurerm_public_ip"
+  pip-map = var.pip-map
+  depends_on = [ module.resource_group ]
 }
