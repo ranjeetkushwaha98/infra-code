@@ -45,35 +45,32 @@ jobs:
         run: terraform plan -no-color -input=false
         continue-on-error: true
         
-  # my_second_job:
-  # name: terraform-apply
-  # runs-on: [self-hosted,]
-  # needs: terraform-init-plan
-  # environment: Dev Env
-  # defaults:
-  #   run:
-  #     working-directory: environment/dev
-  # steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v5.0.0
-         
-  #   - name: Azure Login
-  #     uses: Azure/login@v2.3.0
-  #     with:
-  #       client-id: 8cb427fc-839a-4eba-93ab-5a6355f5aca6
-  #       tenant-id: c3a57982-95da-4753-adb7-e1e9452746a2
-  #       subscription-id: 418b0f60-e8d3-4b5e-af5d-2f7154274590
-    
-  #   - name: Terraform Init
-  #     id: init
-  #     run: terraform init -input=false
-    
-  #   - name: Terraform Plan
-  #     id: plan
-  #     run: terraform plan -no-color -input=false
-  #     continue-on-error: true
+  my_second_job:
+    name: terraform-apply
+    runs-on: [self-hosted,]
+    needs: my_first_job
+    environment: Dev Env
+    defaults:
+      run:
+        working-directory: environment/dev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
+           
+      - name: Azure Login
+        uses: Azure/login@v2.3.0
+        with:
+          client-id: 8cb427fc-839a-4eba-93ab-5a6355f5aca6
+          tenant-id: c3a57982-95da-4753-adb7-e1e9452746a2
+          subscription-id: 418b0f60-e8d3-4b5e-af5d-2f7154274590
       
-    
-    
-            
-            
+      - name: Terraform Init
+        id: init
+        run: terraform init -input=false
+      
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+        
+      
